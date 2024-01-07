@@ -1,0 +1,25 @@
+.tableNoteType th {
+  @apply bg-light text-white border-r-[2px] border-gray-500 text-[1.3rem] font-bold
+}
+
+.tableNoteType td {
+  @apply border-[1px] border-white
+}
+
+.tableNoteType tr:nth-child(even) textarea{
+  @apply bg-gray-100
+}
+.tableNoteType tr textarea{
+  @apply bg-gray-200 outline-light rounded-md outline-[2px] focus:bg-white h-[4rem]
+}
+
+.tableNoteType td textarea{
+  @apply  text-[1.2rem] 
+}
+
+.tableNoteType th, .tableNoteType td textarea {
+  @apply p-3 max-md:text-[1.1rem]
+}
+
+
+/*list*/

@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,700;0,800;1,600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+   --bgr: rgba(255, 255, 255, 0.87);
+   --bg: rgba(20, 15, 51, 0.9);
+}
+
+
+
+body{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  color:white;
+}
+
+a {
+  font-weight: 500;
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.wrapper{
+  @apply px-6 md:px-24 
+}
+.wrapper2{
+  @apply px-6 md:px-6 
+}
+
+
+.ripple-btn {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+.ripple-btn::before {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      background: blue;
+      top:0;
+      left:0;
+      scale:1;
+      transition: transform 0.6s;
+      @apply w-2 h-2 
+    }
+
+ripple-btn:hover {
+      scale:80;
+      
+    }
+    
+    
+    .input{
+      @apply w-full
+    }
+    
+    
+/*scroll bar*/
+
+   .scroll::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .scroll::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      @apply bg-red-300
+    }
+   
+    
+
+    .scroll::-webkit-scrollbar-track {
+      border-radius: 5px;
+      
+    }
+    
+    
+ /*shadow sp*/
+ .shadow-sp{
+   box-shadow : 0 0 2px rgba(0,0,0,0.6)
+ }

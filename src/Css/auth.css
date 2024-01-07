@@ -1,0 +1,9 @@
+
+.AuthLayout{
+  background:var(--bg);
+  @apply flex justify-center items-center w-screen h-screen
+}
+
+.authBg {
+  backdrop-filter: blur(4.1px);
+}
