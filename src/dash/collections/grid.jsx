@@ -1,6 +1,6 @@
 import react,{useState} from "react"
 import {Link} from "react-router-dom"
-import bg from "../../assests/memory.jpg"
+import bg from "/memory.jpg"
 
 //components
 import EditCollection from "./editCollection"
