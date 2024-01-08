@@ -22,9 +22,8 @@ const SideNav =({setIsOpen,isOpen})=>{
     
   let content;
   content = collections.map((colle,index)=>(
-  ))    
   <Link onClick={()=> setIsOpen(false)} to={`/dash/collection/${colle.title}`} className={`w-[100%] pl-4  ${ colleId === colle.title && "border-l-primary border-l-4" } p-2 border-b-[2px] border-light overflow-auto hover:text-red-400 hover:underline`}>{colle.title}</Link>
-    
+    ))
   const [isDroped,setIsDroped] = useState(false)
   const navigate = useNavigate()
   

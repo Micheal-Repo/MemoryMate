@@ -1,5 +1,5 @@
 import react,{useState} from "react"
-import Icon from "../../assests/memory.jpg"
+import Icon from "/memory.jpg"
 import {MdClose,MdMenu} from "react-icons/md"
 import {FaSearch} from "react-icons/fa"
 

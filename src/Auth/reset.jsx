@@ -1,5 +1,5 @@
 import react,{useState,useRef,useEffect} from "react"
-import avatar from "../assests/profile.png"
+import avatar from "/profile.png"
 
 //library 
 import {Link,useNavigate} from "react-router-dom"

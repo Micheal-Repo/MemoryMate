@@ -1,5 +1,5 @@
 import react,{useState} from "react"
-import bg from "../assests/dashBg.jpg"
+import bg from "/dashBg.jpg"
 import "../Css/dash.css"
 //library
 import {Outlet} from "react-router-dom"
