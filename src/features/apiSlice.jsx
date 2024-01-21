@@ -11,7 +11,7 @@ const pushNav = ()=>{
 
 
 const baseQuery = fetchBaseQuery({ 
-  baseUrl: 'https://memorymate-api.onrender.com',
+  baseUrl: "http://localhost:3500", //'https://memorymate-api.onrender.com',
   credentials:"include",
   prepareHeaders:(headers,{getState})=>{
     
@@ -40,10 +40,10 @@ const baseQueryReAuth =async(args,api,extraOptions)=>{
       api.dispatch(setToken(refreshResult?.data?.accessToken))
       
       //retry original request
-      const result = await baseQuery(args,api,extraOptions)
+      const resultRetry = await baseQuery(args,api,extraOptions)
       
       
-      return result
+      return resultRetry
     }else if(refreshResult?.error?.data?.jwtError){
         
         return refreshResult

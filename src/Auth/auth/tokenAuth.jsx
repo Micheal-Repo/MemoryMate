@@ -62,7 +62,7 @@ const TokenAuth =()=>{
      
     
  }else if (data?.success && token){
-   content = <p className="text-black text-3xl">Hello</p>
+   content = <Outlet/>
  }else if(isError){
    if(error?.data?.jwtError ){
      navigate("/auth/login",{replace:true})
@@ -72,7 +72,7 @@ const TokenAuth =()=>{
      content = <NoInternet/>
    }
  }else if(token){
-   content = <p className="text-black text-3xl">Hello</p>
+   content = <Outlet/>
  }
  
   
