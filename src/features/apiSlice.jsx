@@ -40,10 +40,10 @@ const baseQueryReAuth =async(args,api,extraOptions)=>{
       api.dispatch(setToken(refreshResult?.data?.accessToken))
       
       //retry original request
-      const resultRetry = await baseQuery(args,api,extraOptions)
+      const result = await baseQuery(args,api,extraOptions)
       
       
-      return resultRetry
+      return result
     }else if(refreshResult?.error?.data?.jwtError){
         
         return refreshResult
