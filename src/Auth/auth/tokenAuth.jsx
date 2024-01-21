@@ -31,7 +31,7 @@ const TokenAuth =()=>{
   
   useEffect(()=>{
     
-    
+    localStorage.removeItem("loggedIn")
     if(effectRan.current === true){
         const Refresh =async()=>{
           await refresh()
