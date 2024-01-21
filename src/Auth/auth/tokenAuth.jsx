@@ -62,7 +62,7 @@ const TokenAuth =()=>{
      
     
  }else if (data?.success && token){
-   content = <Outlet/>
+  // content = <Outlet/>
  }else if(isError){
    if(error?.data?.jwtError ){
      navigate("/auth/login",{replace:true})
@@ -72,11 +72,11 @@ const TokenAuth =()=>{
      content = <NoInternet/>
    }
  }else if(token){
-   content = <Outlet/>
+  // content = <Outlet/>
  }
  
   
-  return <p className="text-black text-2xl">Welcome to dash</p>
+  return content
  
     
     
