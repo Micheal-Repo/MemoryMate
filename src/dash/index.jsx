@@ -6,6 +6,8 @@ import  Collection from "./collections/collection"
 import  Category from "./categories/category"
 import  NoFile from "./categories/NoFile"
 import  Notes from "./notes/notes"
+//folders
+import  Folders from "./folders/folders"
 
 
 export {
@@ -15,7 +17,9 @@ export {
   //categories 
   Category,
   NoFile,
-  //notes
   NotesFolders,
+  //folders
+  Folders,
+  //notes
   Notes
 }

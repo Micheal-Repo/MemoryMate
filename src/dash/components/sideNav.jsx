@@ -4,26 +4,48 @@ import "../../Css/dash.css"
 //library 
 import {Link,useNavigate,useParams} from "react-router-dom"
 import OutsideClickHandler from 'react-outside-click-handler';
+import {useSelector} from "react-redux"
+import Spinner from 'react-spinner-material';
 
+
+//components
+import {useGetCollesQuery,selectColleIds} from "../collections/colleApiSlice"
+
+import {selectUserInfo} from "../../features/Slice"
 //icon
 import {IoIosArrowDown,IoIosArrowUp} from "react-icons/io"
 
 
 const SideNav =({setIsOpen,isOpen})=>{
+  
+  const userInfo = useSelector(selectUserInfo)
+  
+  
   const {colleId} = useParams() 
   
-  const [collections,setCollections]= useState([
-   {title: "physiology",desc:"physiology is the study of human"},
-   {title: "biochemistry",desc:"biochemistry is the study of human"},
-   {title: "microbiology",desc:"microbiology is the study of microrganism"},
-   {title: "chemistry",desc:"chemistry is the study of atoms"},
-   
-    ])
+  const colleIds = useSelector(selectColleIds)
+  
+    const {
+    data,
+  }=useGetCollesQuery("colleList",{
+    //pollingInterval:15000,
+    //refetchOnFocus:true,
+    //refetchOnMountOrArgChange:true
+  })
     
+  
   let content;
-  content = collections.map((colle,index)=>(
-  <Link onClick={()=> setIsOpen(false)} to={`/dash/collection/${colle.title}`} className={`w-[100%] pl-4  ${ colleId === colle.title && "border-l-primary border-l-4" } p-2 border-b-[2px] border-light overflow-auto hover:text-red-400 hover:underline`}>{colle.title}</Link>
-    ))
+  if(data){
+    const {ids, entities} = data;
+    
+    if(ids?.length){
+      
+   content = ids.map(id=> <List id={id} setIsOpen={setIsOpen}/>)
+  
+  }}
+    
+  
+
   const [isDroped,setIsDroped] = useState(false)
   const navigate = useNavigate()
   
@@ -35,8 +57,11 @@ const SideNav =({setIsOpen,isOpen})=>{
     navigate("/dash")
   }
   
+
+  
   return(
     <>
+    
     <div className={` md:hidden w-screen h-screen ${isOpen ? "opacity-[0.6] left-0":"opacity-0 left-[-100%]"} bg-black  absolute top-0 left-0 z-40`}>
     </div>
       <OutsideClickHandler onOutsideClick={()=> setIsOpen(false)}>
@@ -51,8 +76,11 @@ const SideNav =({setIsOpen,isOpen})=>{
         </div>
         
         <div className="flex flex-col text-center justify-center items-center">
-          <p className="text-[1.3rem] font-bold text-primary ">Michael Aloysius</p>
-          <p className="text-gray-200 font-medium">email@gmail.com</p>
+          <p className="text-[1.3rem] font-bold text-red-400 ">{userInfo.username}</p>
+          <p className="text-gray-200 font-medium">{
+          userInfo.email.split("").length < 19 ? userInfo.email :
+          `${userInfo.email.split("@")[0].slice(0,10)}...@gmail.com`
+          }</p>
         </div>
         
         <Link className="w-full p-2 bg-light text-white text-center rounded-3xl hover:scale-110 duration-200 drop-shadow-lg">view profile</Link>
@@ -60,10 +88,10 @@ const SideNav =({setIsOpen,isOpen})=>{
       </div>
     
     {/*collection*/}
-    <div className="w-full p-4 flex flex-col gap-1">
+    <div className="w-full  flex flex-col ">
     
-    <div className="flex justify-between items-center text-white">
-      <p className="hover:text-red-400 hover:underline-offset-2 hover:underline font-bold text-[1.2rem] text-white"
+    <div className="flex justify-between items-center text-white py-3 px-4 hover:bg-light">
+      <p className="hover:text-red-400 hover:underline-offset-2 hover:underline font-bold text-[1.2rem] text-white "
       onClick={handleCollection}>Collections </p>
       <IoIosArrowUp size={23} onClick={handleClick} 
       className={` transistion-all duration-200 ${isDroped && "rotate-180"}`} />
@@ -71,9 +99,10 @@ const SideNav =({setIsOpen,isOpen})=>{
       
       <div className={`w-full pl-2  transition-all duration-200 text-white ${!isDroped ? "h-0" : "max-md:h-[12rem] h-[14rem]"} overflow-auto flex flex-col`}>
       
-      {content}
+       {content}
    
       </div>
+      
     </div>
   
     </div>
@@ -84,3 +113,27 @@ const SideNav =({setIsOpen,isOpen})=>{
 
 
 export default SideNav;
+
+
+const List =({id,setIsOpen})=>{
+  const {colleId} = useParams() 
+  
+  const {colle} = useGetCollesQuery("colleList",{
+      selectFromResult:({data})=>({
+        colle: data?.entities[id]
+      })
+    })
+    
+  return(
+    
+      <Link onClick={()=> setIsOpen(false)} to={`/dash/collection/${colle.id}`} className={`w-[100%] pl-4  ${ colleId === colle.id && "border-l-red-400 border-l-4" } p-2 border-b-[2px] border-light  hover:text-red-400 hover:underline`}>
+      {
+        colle.title.split("").length < 18
+        ? colle.title :
+        `${colle.title.slice(0,18)}...`
+      }
+        </Link>
+    
+    
+    )
+}

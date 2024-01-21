@@ -19,7 +19,7 @@ const AuthLayout =()=>{
   return(
     <div className="overflow-auto AuthLayout relative">
     
-    
+  
     <Swiper 
     effect={"fade"}
     loop={true}
@@ -29,7 +29,7 @@ const AuthLayout =()=>{
     }}
     pagination={{clickable:true}}
     modules={[Autoplay,Pagination,EffectFade, Navigation]}
-    className="bg-amber-700 w-full h-full flex justify-center items-center text-center">
+    className=" w-full h-full flex justify-center items-center text-center">
     {ImagesAuth.map((img)=>(
       <SwiperSlide className=" flex justify-center items-center overflow-hidden">
         <div
@@ -38,7 +38,7 @@ const AuthLayout =()=>{
         backgroundSize:"cover",
         backgroundPosition:"center",
         }}
-        className="bg-blue-600 w-full h-full">
+        className=" w-full h-full">
         </div>
       </SwiperSlide>
     ))}

@@ -13,6 +13,8 @@ export const store = configureStore({
 
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(ApiSlice.middleware),
+  
+  devTools: false
 })
 
 

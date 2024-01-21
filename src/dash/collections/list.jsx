@@ -1,11 +1,11 @@
 import react,{useState} from "react"
-
+import {useGetCollesQuery} from "./colleApiSlice"
 
 const List =({collections})=>{
   
   let content;
   content =collections.map((collection,index)=>(
-              <tr className="list ">
+            <tr className="list ">
             <td>{index + 1}</td>
             <td>{collection.title}</td>
             <td>20</td>

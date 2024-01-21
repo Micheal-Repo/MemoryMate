@@ -6,6 +6,9 @@ import Reset from "./reset"
 import VerifyEmailPwd from "./verifyEmailPwd"
 import AuthLayout from "./layout"
 
+import TokenAuth from "./auth/tokenAuth"
+import Prefetch from "./auth/prefetch"
+
 
 export {
   Register,
@@ -14,5 +17,8 @@ export {
   Recover,
   VerifyEmail,
   Reset,
-  VerifyEmailPwd
+  VerifyEmailPwd,
+  
+  TokenAuth,
+  Prefetch,
 }

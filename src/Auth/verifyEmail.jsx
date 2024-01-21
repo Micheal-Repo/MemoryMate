@@ -1,18 +1,57 @@
-import react,{useState} from "react"
+import react,{useState,useEffect} from "react"
 
 //library
 import {Link,useNavigate} from "react-router-dom"
+import { toast } from 'react-toastify';
+import Spinner from 'react-spinner-material';
+import { RotatingLines} from 'react-loader-spinner'
+
+
+//components
+import {useVerifyEmailMutation,useResendMailMutation} from "./api/authApiSlice"
+
 
 const VerifyEmail =()=>{
+  
+  const [resendMail,{
+    data:resendData,
+    isLoading : isResendLoading,
+    isSuccess : isResendSuccess,
+    isError : isResendError,
+    error : resendError
+  }] = useResendMailMutation()
+  
+  const [verifyEmail,{
+    data : verifyData,
+    isLoading:isVerifyLoading,
+    isSuccess : isVerifySuccess,
+    isError : isVerifyError,
+    error : verifyError
+  }] = useVerifyEmailMutation()
+  
+  
+  //email and id from localStorage
+  const [userId , setUserId]= useState("")
+  const [userEmail , setUserEmail]= useState("")
+  
+  useEffect(()=>{
+   setUserId(localStorage.getItem("userId") || "")
+   setUserEmail(localStorage.getItem("userEmail") || "")
+  },[])
+  
+  //spit email
+const splitEmail = userEmail.split("@")
+
+  
   const [otp,setOtp] = useState(['','','',''])
-  const isOtpCompleted = otp.every(digit => digit !== '')
-  const [errMsg,setErrMsg] = useState("invalid otp")
+  const isOtpCompleted = otp.every(digit => digit !== '') && userId
+  const [errMsg,setErrMsg] = useState("")
   const navigate = useNavigate()
   
   const handleChange=(index,value)=>{
     const newOtp = [...otp]
     newOtp[index] = value
-    
+    setErrMsg("")
     setOtp(newOtp)
     
     if(value !== '' && index < otp.length -1){
@@ -46,12 +85,121 @@ const VerifyEmail =()=>{
     setOtp(newOtp)
   }
   
-  const onSubmit=(e)=>{
+  const onSubmit=async(e)=>{
     e.preventDefault()
-    
     const enteredOtp = otp.join('')
     
-    navigate("/")
+    setErrMsg("")
+    await verifyEmail({id:userId,otp:enteredOtp})
+    
+  }
+  
+  
+  //isVerifySuccess
+  useEffect(()=>{
+    if(isVerifySuccess){
+     if(verifyData?.success && verifyData?.verified){
+      toast.success(verifyData?.message)
+      setTimeout(()=>{
+        navigate("/auth/login",{replace:true})
+      },2000)
+      setErrMsg("")
+      localStorage.removeItem("userId")
+       localStorage.removeItem("userEmail")
+    }else{
+      setErrMsg("")
+      toast.error("server error")
+    }
+    
+    }
+  },[isVerifySuccess || navigate])
+  
+  //isVerifyError
+  useEffect(()=>{
+   if(isVerifyError){
+     
+   
+    if(verifyError?.data?.myError){
+      setErrMsg(verifyError?.data?.message)
+    }else if(verifyError?.status === "FETCH_ERROR"){
+      toast.error("Network Error")
+    setErrMsg("")
+    }else{
+      
+      toast.error("server error",{
+        toastId:"error-out"
+      })
+     setErrMsg("")
+    }
+    
+    }
+  },[verifyError])
+  
+  
+  
+  //resend email
+const Resend =async()=>{
+  setErrMsg("")
+  await resendMail({id:userId})
+
+}
+
+useEffect(()=>{
+  if(isResendSuccess){
+  
+   if(resendData?.success){
+     toast.success(resendData?.message)
+     if(resendData?.verified){
+       setTimeout(()=>{
+         navigate("/login",{replace:true})
+       },1000)
+       
+       setErrMsg("")
+       localStorage.removeItem("userId")
+       localStorage.removeItem("userEmail")
+     }
+  }else{
+    setErrMsg("")
+    toast.error("something went wrong")
+  }
+  
+}
+  
+},[isResendSuccess || navigate])
+
+
+
+useEffect(()=>{
+   if(isResendError){
+     
+   
+    if(resendError?.data?.myError){
+      setErrMsg(resendError?.data?.message)
+    }else if(resendError?.status === "FETCH_ERROR"){
+      toast.error("No internet connection")
+       setErrMsg("")
+    }else if(!resendError?.data?.message){
+       toast.error("unexpected error occurred",{
+         toastId:"unexpected"
+       })
+       setErrMsg("")
+      }else{
+      
+      toast.error("something went wrong",{
+        toastId:"error-out"
+      })
+       setErrMsg("")
+    }
+    
+    }
+  },[resendError])
+  
+  
+  //handleBack
+  const handleBack=()=>{
+    localStorage.removeItem("userId")
+    localStorage.removeItem("userEmail")
+    navigate(-1,{replace:true})
   }
   
   return(
@@ -63,15 +211,22 @@ const VerifyEmail =()=>{
             {errMsg}
          </div>
        }
+       
        <div className="text-center">
            <p className="text-[2.3rem] font-bold text-primary mb-[0.8rem]">Verify Email</p>
             
        
-           <p className="text-[1rem] font-normal italic mb-1">A verification Otp has been sent to this email</p>
+         
+           <p className="text-[1rem] font-normal italic mb-1">{userId ? "A verification Otp has been sent to this email" : "Hello! you followed the wrong path" }</p>
            
-           <p className="text-[1rem] font-medium text-gray-400">
-            email@gmail.com
+           { userId && userEmail && <p className="text-[1rem] font-medium text-gray-400">
+            {`${splitEmail[0].slice(0,10)}...@gmail.com`}
            </p>
+           }
+      
+
+           
+      
        </div>
        
        <p className=" mb-[-1.5rem] text-center text-[1.2rem] font-medium text-gray-200">Enter OTP</p>
@@ -92,14 +247,46 @@ const VerifyEmail =()=>{
        }
        </div>
        <div className="w-full">
-         <button type="submit" disabled={!isOtpCompleted}  className={`w-full p-2 font-bold ${isOtpCompleted ? "bg-primary " : "bg-gray-400 text-gray-600" } rounded-lg text-[1.2rem]`}>Verify</button>
+         <button type="submit" disabled={!isOtpCompleted}  className={`w-full p-2 font-bold ${isOtpCompleted  ? "bg-primary " : "bg-gray-400 text-gray-600" } rounded-lg text-[1.2rem] relative overflow-hidden`}>
+         
+          {isVerifyLoading ? "verifying..." : "verify" } 
+             {/*loading*/}
+           { isVerifyLoading &&  <span className="absolute w-full h-full top-0 left-0   flex justify-center items-center">
+             <span className="absolute top-0 left-0 h-full w-full bg-slate-800 opacity-[0.7]"></span>
+             <span className="z-30">
+              <RotatingLines
+             visible={true}
+             height="45"
+             width="45"
+             color="rgba(20, 15, 51, 0.9)"
+             strokeWidth="5"
+             animationDuration="0.75"
+             ariaLabel="rotating-lines-loading"
+             
+         />
+           </span>
+       </span>
+       }
+            
+         </button>
+
        </div>
           
+          <p className="text-center font-medium flex items-center gap-1">
+           Didn't get OTP?
+            { !isResendLoading ?
+            
+             <p onClick={Resend} className="text-primary underline font-medium"> 
+             
+                 Resend
+              </p>
+              :
+             <span className="opacity-[0.8]">
+                     <Spinner radius={20} color={"#fff"} stroke={3} visible={true} />
+       
+             </span>
           
-          <p className="text-center font-medium">
-           Didn't get OTP?? 
-             <Link className="text-primary underline font-medium"> Resend
-           </Link>
+           }
            </p>
        </form>
    
