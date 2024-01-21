@@ -29,30 +29,30 @@ const TokenAuth =()=>{
   const effectRan = useRef(false)
   const [trueSuccess,setTrueSuccess] = useState(false)
   
-  useEffect(()=>{
+  // useEffect(()=>{
     
     
-    if(effectRan.current === true){
-        const Refresh =async()=>{
-           await refresh()
-           setTrueSuccess(true)
-        }
+  //   if(effectRan.current === true){
+  //       const Refresh =async()=>{
+  //         await refresh()
+  //         setTrueSuccess(true)
+  //       }
    
-     if(!token) Refresh()
+  //   if(!token) Refresh()
       
-    } 
+  //   } 
   
-  return () => effectRan.current = true
-  },[])
+  // return () => effectRan.current = true
+  // },[])
   
-  //decode token
+  // //decode token
   
   
-  if(token){
-    const decoded = jwtDecode(token);
-    const {userInfo} = decoded;
-    dispatch(setUserInfo({...userInfo}))
-  }
+  // if(token){
+  //   const decoded = jwtDecode(token);
+  //   const {userInfo} = decoded;
+  //   dispatch(setUserInfo({...userInfo}))
+  // }
   
   
   
@@ -76,7 +76,7 @@ const TokenAuth =()=>{
  }
  
   
-  return <Outlet/>
+  return content
  
     
     
