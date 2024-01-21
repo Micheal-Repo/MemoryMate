@@ -1,14 +1,23 @@
 import react,{useState} from "react"
 import bg from "/dashBg.jpg"
 import "../Css/dash.css"
+
+import UseTitle from "../Accessories/useTitle"
+
 //library
 import {Outlet} from "react-router-dom"
+import {useSelector} from "react-redux"
+import {selectUserInfo} from "../features/Slice"
 
 //components
 import Nav from "./components/nav"
 import SideNav from "./components/sideNav"
 
 const DashLayout =()=>{
+  const userInfo = useSelector(selectUserInfo)
+  UseTitle(`memory-mate | Dashboard - ${userInfo.username}`)
+  
+  
   const [isOpen,setIsOpen] = useState(false)
   
   return(

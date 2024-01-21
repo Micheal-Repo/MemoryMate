@@ -1,5 +1,6 @@
 import react,{useState,useRef,useEffect} from "react"
 
+import UseTitle from "../Accessories/useTitle"
 //library 
 import {Link,useNavigate} from "react-router-dom"
 import {useFormik} from "formik"
@@ -12,6 +13,7 @@ import {validateEmailLogin} from "./helper/validate"
 import {useRecoverMutation} from "./api/authApiSlice2"
 
 const Recover =()=>{
+  UseTitle("memory-mate | password reset")
   
   const [errMsg,setErrMsg] = useState("")
   const navigate = useNavigate()

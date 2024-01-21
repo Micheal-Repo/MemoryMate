@@ -1,4 +1,5 @@
 import react,{useState,useRef,useEffect} from "react"
+import UseTitle from "../Accessories/useTitle"
 import avatar from "/profile.png"
 
 //library 
@@ -12,7 +13,7 @@ import {validateReset} from "./helper/validate"
 import {usePwdResetMutation} from "./api/authApiSlice2"
 
 const Reset  =()=>{
-  
+  UseTitle("memory-mate | create new password")
   const [pwdReset,{
     data,
     isLoading,

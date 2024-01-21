@@ -1,5 +1,7 @@
 import react,{useState,useEffect} from "react"
 
+import UseTitle from "../Accessories/useTitle"
+
 //library
 import {Link,useNavigate} from "react-router-dom"
 import { toast } from 'react-toastify';
@@ -11,6 +13,9 @@ import {useVerifyEmailPwdMutation,useResendMailPwdMutation} from "./api/authApiS
 
 
 const VerifyEmailPwd =()=>{
+  
+  UseTitle("memory-mate | verify-email")
+  
   const [otp,setOtp] = useState(['','','',''])
   
   const [errMsg,setErrMsg] = useState("")

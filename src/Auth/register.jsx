@@ -1,5 +1,5 @@
 import react,{useState,useRef,useEffect} from "react"
-
+import UseTitle from "../Accessories/useTitle"
 import avatar from "/profile.png"
 
 //library 
@@ -15,6 +15,9 @@ import PasswordPermit from "./components/passwordPermit"
 import {convertToBase64} from "../dash/helper/covertImg"
 
 const EmailLogin =({setIsVerified})=>{
+  UseTitle("memory-mate | register")
+  
+  
   const [permited,setPermited] = useState(localStorage.getItem("permited") || false)
   
   useEffect(()=>{

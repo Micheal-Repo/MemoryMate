@@ -1,8 +1,9 @@
 import react,{useState} from "react"
 import {Link} from "react-router-dom"
-
+import UseTitle from "../Accessories/useTitle"
 const Home =()=>{
   
+  UseTitle("memory-mate")
   
   return(
     <div className="bg-dark w-screen h-screen grid place-content-center">

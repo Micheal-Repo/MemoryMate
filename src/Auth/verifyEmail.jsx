@@ -1,5 +1,5 @@
 import react,{useState,useEffect} from "react"
-
+import UseTitle from "../Accessories/useTitle"
 //library
 import {Link,useNavigate} from "react-router-dom"
 import { toast } from 'react-toastify';
@@ -12,6 +12,7 @@ import {useVerifyEmailMutation,useResendMailMutation} from "./api/authApiSlice"
 
 
 const VerifyEmail =()=>{
+  UseTitle("memory-mate | verify-email")
   
   const [resendMail,{
     data:resendData,
