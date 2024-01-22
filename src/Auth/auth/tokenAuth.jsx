@@ -76,8 +76,10 @@ const TokenAuth =()=>{
  }
  
   
-  return <p className="text-black text-3xl">Hello</p>
- 
+  return (
+    <p onClick={refresh}  className="text-white p-2 text-3xl bg-red-500">{isLoading ? "isLoading" : "Hello"}</p>
+    
+ )
     
     
 }
