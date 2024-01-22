@@ -32,7 +32,7 @@ const TokenAuth =()=>{
   useEffect(()=>{
     
     localStorage.removeItem("loggedIn")
-    if(effectRan.current === true){
+    if(effectRan.current === true || process.env.NODE_ENV !== 'development'){
         const Refresh =async()=>{
           await refresh()
           setTrueSuccess(true)
@@ -87,9 +87,9 @@ const TokenAuth =()=>{
   
   return (
     <>
-    <p onClick={refresh}  className="text-white p-2 text-3xl bg-red-500">
+    <div onClick={refresh}  className="text-white p-2 text-3xl bg-red-500">
     let : {me}
-    </p>
+    </div>
 
    </> 
  )
