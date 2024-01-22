@@ -46,7 +46,7 @@ const AuthLayout =()=>{
     </Swiper>
     
      <div className=" py-6 overflow-auto absolute w-full h-full top-0 left-0 z-50 flex justify-center items-center">
-     <div className=" overflow-auto max-md:w-[80%] w-[28rem] md:p-12 authBg  flex justify-center items-center  rounded-lg bg-color1 shadow-md border-2 border-gray-700 p-5 py-3">
+     <div className=" overflow-auto max-md:w-[80%] w-[28rem] md:p-12 authBg  flex justify-center items-center  rounded-lg bg-color1 shadow-md border-2 border-gray-700 p-5">
     
        <Outlet/>
      </div>

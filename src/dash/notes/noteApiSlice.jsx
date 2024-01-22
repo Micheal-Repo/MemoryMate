@@ -2,7 +2,19 @@ import {createSelector, createEntityAdapter} from "@reduxjs/toolkit"
 import {ApiSlice} from "../../features/apiSlice"
 
 
-const noteAdapter = createEntityAdapter({})
+//const noteAdapter = createEntityAdapter({})
+
+const noteAdapter = createEntityAdapter({
+  sortComparer: (a, b) => {
+    // Assuming createdAt is a valid date string or timestamp
+    const timeA = new Date(a.createdAt).getTime();
+    const timeB = new Date(b.createdAt).getTime();
+
+    // Sort in descending order based on createdAt
+    return timeA - timeB;
+  },
+});
+
 
 const initialState = noteAdapter.getInitialState()
 
