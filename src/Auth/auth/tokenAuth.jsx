@@ -85,14 +85,7 @@ const TokenAuth =()=>{
    
  }
   
-  return (
-    <>
-    <div onClick={refresh}  className="text-white p-2 text-3xl bg-red-500">
-    let : {me}
-    </div>
-
-   </> 
- )
+  return content
     
     
 }
