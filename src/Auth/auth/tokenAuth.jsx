@@ -76,7 +76,7 @@ const TokenAuth =()=>{
  }
  
   
-  return content//<p className="text-black text-3xl">Hello</p>
+  return <p className="text-black text-3xl">Hello</p>
  
     
     
