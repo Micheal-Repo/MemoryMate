@@ -17,10 +17,10 @@ const HomePage = () => {
         </h1>
         
         <div className="w-full grid place-content-center">
-          <div className="border-2 border-red-300 w-[8rem] h-[8rem] overflow-hidden rounded-full"><img src="/memory.jpg" className="w-full h-full rounded-full"/></div>
+          <div className="border-2 shadow-sp border-gray-200 w-[8rem] h-[8rem] overflow-hidden rounded-full"><img src="/memory.jpg" className="w-full h-full rounded-full"/></div>
         </div>
         
-        <p className="mt-2 italic text-lg text-red-300 mb-8 text-center">
+        <p className="mt-2 italic text-lg text-gray-300 mb-8 text-center">
           Your Ultimate Note-Taking Companion!
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

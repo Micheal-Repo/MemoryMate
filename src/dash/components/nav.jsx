@@ -109,7 +109,7 @@ const [logoutOpen,setLogoutOpen] = useState(false)
      <MdMenu size={25} className="md:hidden" onClick={handleClick}/>
      }
   
-    <div className="flex gap-1 items-center ">
+    <div onClick={()=> navigate("/")} className="flex gap-1 items-center ">
         <div className="w-[2.5rem] h-[2.5rem] border-[1px] border-gray-500 shadow rounded-full overflow-hidden relative">
           <img src={Icon} className="w-full h-full rounded-full"/>
           <div className="absolute top-0 left-0 w-full h-full text-center font-bold flex justify-center items-center  opacity-50 text-2xl rounded-full">
@@ -118,7 +118,7 @@ const [logoutOpen,setLogoutOpen] = useState(false)
           </div>
         </div>
         
-        <div className="text-[1rem] font-medium ">
+        <div onClick={()=> navigate("/")} className="text-[1rem] font-medium ">
          MemoryMate
         </div>
     </div>
