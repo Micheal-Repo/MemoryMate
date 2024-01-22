@@ -2,16 +2,11 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {setToken} from "./Slice"
 import {useNavigate} from "react-router-dom"
 
-const pushNav = ()=>{
- const navigate = useNavigate()
- 
- navigate("/")
-}
 
 
 
 const baseQuery = fetchBaseQuery({ 
-  baseUrl: "http://localhost:3500", //'https://memorymate-api.onrender.com',
+  baseUrl: "https://memorymate-api.onrender.com",
   credentials:"include",
   prepareHeaders:(headers,{getState})=>{
     

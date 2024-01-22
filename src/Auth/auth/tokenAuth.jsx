@@ -75,15 +75,7 @@ const TokenAuth =()=>{
    content = <Outlet/>
  }
  
- let me
- if(isLoading){
-   me = "loading"
- }else if(isSuccess){
-   me = "success"
- }else if(isError){
-   me = "error"
-   
- }
+ 
   
   return content
     
