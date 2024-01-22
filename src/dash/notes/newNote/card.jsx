@@ -83,7 +83,8 @@ const Card =({
       toast.success(data?.message,{
         toastId:"addNotewr"
       });
-      
+      setTitle(""),
+      setContent("")
      setOpenAddNote(false)
     setNewNoteOpen(false)
       

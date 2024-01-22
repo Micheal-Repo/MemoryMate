@@ -127,7 +127,8 @@ const List =({
       toast.success(data?.message,{
         toastId:"addlist"
       });
-      
+      setListData([])
+      setListTitle("")
      setOpenAddNote(false)
     setNewNoteOpen(false)
       

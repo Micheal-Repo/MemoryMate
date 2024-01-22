@@ -164,7 +164,9 @@ const Table =({
       toast.success(Data?.message,{
         toastId:"addtable"
       });
-      
+      setTableTitle("")
+      setColumns([])
+      setRowData([])
      setOpenAddNote(false)
     setNewNoteOpen(false)
       
