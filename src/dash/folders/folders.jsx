@@ -202,7 +202,14 @@ const Folders =()=>{
      <div className="w-full   items-center relative shadow-sp rounded-md p-1 my-2">
      
      <div className="flex justify-between items-end">
-     <p className="italic font-semibold ml-2 w-[12rem] overflow-auto">{activeFolder?.title}</p>
+     <div className=" ml-2 w-[13rem] overflow-auto relative ">
+     <input
+     type="text"
+       disabled
+        value={activeFolder?.title}
+        className="italic font-medium"
+        />
+     </div>
      
       <div className="flex gap-2 bg-white
        items-center rounded-bl-lg rounded-tl-lg text-light">
