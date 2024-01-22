@@ -17,7 +17,7 @@ const TokenAuth =()=>{
   const [refresh,{
     data,
     isLoading,
-    isSucess,
+    isSuccess,
     isError,
     error
   }] = useRefreshMutation()
@@ -75,10 +75,23 @@ const TokenAuth =()=>{
    content = <Outlet/>
  }
  
+ let me
+ if(isLoading){
+   me = "loading"
+ }else if(isSuccess){
+   me = "success"
+ }else if(isError){
+   me = "error"
+   
+ }
   
   return (
-    <p onClick={refresh}  className="text-white p-2 text-3xl bg-red-500">{isLoading ? "isLoading" : "Hello"}</p>
-    
+    <>
+    <p onClick={refresh}  className="text-white p-2 text-3xl bg-red-500">
+    let : {me}
+    </p>
+
+   </> 
  )
     
     
