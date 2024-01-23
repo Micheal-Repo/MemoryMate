@@ -17,12 +17,29 @@ import NewNotes from "./notePop/newNotes"
 import useStyleH from "../Hooks/useStyleH"
 
 //icons
-import {MdAdd,MdSearch} from "react-icons/md"
+import {MdAdd,MdSearch,MdClose} from "react-icons/md"
 
 
 const Notes =()=>{
   const value = useSelector(state => state.mySlice.value)
   
+  //swarch
+  const [searchOpen,setSearchOpen] = useState(false)
+  const [search,setSearch] = useState("")
+  
+  const onSearch = (e)=>{
+    setSearch(e.target.value)
+  }
+  
+  const openSearch=()=>{
+    setSearchOpen(true)
+  }
+  const closeSearch=()=>{
+    setSearch("")
+    setSearchOpen(false)
+  }
+  
+  //
   const navigate = useNavigate()
   
   //ids
@@ -86,11 +103,18 @@ const Notes =()=>{
       }
     
     if(filteredId?.length){
-      
       SetNoteLength(filteredId?.length)
-      noteContent= filteredId.map(noteId => 
+      
+      const searchFilter = !search ? filteredId : filteredId.filter(id => entities[id]?.title.toLowerCase().includes(search.toLowerCase()))
+      
+    if(searchFilter?.length){
+      noteContent= searchFilter.map(noteId => 
         <Note noteId={noteId}/>
       )
+    }else{
+      noteContent = <p className="mt-4 text-center w-full px-2 text-gray-500 font-bold italic">No search result</p>
+    }
+    
     }else{
       noteContent = <p className="mt-4 text-center w-full px-2 text-gray-500 font-bold italic">Empty</p>
   }
@@ -136,14 +160,38 @@ const Notes =()=>{
     setOpenFormat={setOpenFormat}
     />
     
-    <div style={styleH} className="  notesList w-full overflow-auto rounded-md shadow-sp">
+    <div style={styleH} className="  notesList w-full overflow-auto rounded-md shadow-sp relative">
+ 
+
   
-    <div className="flex justify-between items-center md:p-4 max-sm:px-2  rounded mt-1 md:mt-4 py-1">
-      <p>Total: {noteLength}</p>
-      <div className="flex items-center gap-2 text-light">
-      <button className="p-1 md:p-3 rounded-lg shadow-sp bg-gray-200 hover:bg-gray-300 shadow font-medium flex items-center"> 
+    <div className="flex justify-between items-center md:p-4 max-sm:px-2  rounded mt-1 md:mt-4 py-1 gap-2">
+    
+    <div className="flex relative w-full items-center ">
+      <p className={` transition duration-300 ${searchOpen ? "opacity-0" : "opacity-100"} absolute top-[50%] translate-y-[-50%] left-0`}>Total: {noteLength}</p>
+    
+     <div className={`transition-all duration-200 ${searchOpen ? "w-full" : "w-0"} shadow-sp bg-white  overflow-auto rounded-md z-20 `}>
+       <input
+       type="text"
+       value={search}
+       onChange={onSearch}
+       placeholder="search note"
+        className="w-full h-full bg-transparent p-2 md:p-3 outline-0"
+       />
+     </div>
+    </div>
+    
+      <div className="flex items-center gap-2 text-light relative">
+      
+     { !searchOpen ?  <button onClick={openSearch} className="p-1 md:p-3 rounded-lg shadow-sp bg-gray-200 hover:bg-gray-300 shadow font-medium flex items-center"> 
          <MdSearch size={25}/> 
-         </button>
+      </button>
+      :
+      <button onClick={closeSearch} className="p-1 md:p-3 rounded-lg shadow-sp bg-gray-200 hover:bg-gray-300 shadow font-medium flex items-center"> 
+         <MdClose size={25}/> 
+      </button>
+     }
+      
+      
       <button onClick={handleNewNote} className="p-1 md:p-3 rounded-lg bg-gray-200 hover:bg-gray-300 shadow-sp  font-medium flex items-center "> 
          <MdAdd size={25}/>
          </button>

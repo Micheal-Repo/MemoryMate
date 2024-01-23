@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 import {useSelector,useDispatch} from "react-redux"
 
 //icons
-import {MdAdd} from "react-icons/md"
+import {MdAdd,MdClose} from "react-icons/md"
 import {FaListUl,FaSearch} from "react-icons/fa"
 import {BsFillGrid3X3GapFill,BsBriefcaseFill} from "react-icons/bs"
 import {IoIosArrowDown,IoIosArrowUp} from "react-icons/io"
@@ -27,6 +27,19 @@ import DeleteCategory from "./deleteCategory"
 
 
 const Category =()=>{
+  
+      //search 
+  const [search,setSearch] = useState("")
+  
+  const onSearch = (e)=>{
+    setSearch(e.target.value)
+  }
+  
+  const closeSearch=()=>{
+    setSearch("")
+  }
+  
+  
   
   const {colleId} = useParams()
   const {cateId} = useParams()
@@ -105,7 +118,10 @@ const Category =()=>{
    if(filteredIds?.length){   
       SetCateNo(filteredIds?.length)
       
-    content = filteredIds.map(CateId => 
+     const searchFilter = !search ? filteredIds : filteredIds.filter(id => entities[id]?.title.toLowerCase().includes(search.toLowerCase())) 
+    
+    if(searchFilter?.length){
+    content = searchFilter.map(CateId => 
        <EachCategory 
        CateId={CateId}
        setIsDroped={setIsDroped} 
@@ -121,6 +137,9 @@ const Category =()=>{
        setdeleteCategoryId={setdeleteCategoryId}
        />
     )
+    }else{
+      content=<p className="w-full text-center text-gray-500 font-bold italic">No search result</p>
+    }
    }else{
      content=<p className="w-full text-center text-gray-500 font-bold italic">No category</p>
    }
@@ -217,8 +236,13 @@ const Category =()=>{
               
                {/*search*/} 
               <div className="w-full p-2 rounded-lg bg-white flex gap-2 items-center">
-                <FaSearch size={20} className="text-gray-400"/>
+               { !search ? <FaSearch size={20} className="text-gray-400"/>
+               :
+                <MdClose onClick={closeSearch} size={25} className="text-gray-400"/>
+               }
                 <input 
+                value={search}
+                onChange={onSearch}
                 placeholder="search categories"
                 className="outline-0 w-full h-full"
                 />

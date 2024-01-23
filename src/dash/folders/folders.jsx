@@ -21,13 +21,30 @@ import DeleteFolder from "./deleteFolder"
  
 
 //icon
-import {MdAdd,MdSearch,MdDelete,MdInfo} from "react-icons/md"
+import {MdAdd,MdSearch,MdDelete,MdInfo,MdClose} from "react-icons/md"
 import {FaSearch} from "react-icons/fa"
 import {HiDotsVertical} from "react-icons/hi"
 import {AiFillEdit} from "react-icons/ai"
 
 
 const Folders =()=>{
+  
+    //swarch
+  const [searchOpen,setSearchOpen] = useState(false)
+  const [search,setSearch] = useState("")
+  
+  const onSearch = (e)=>{
+    setSearch(e.target.value)
+  }
+  
+  const openSearch=()=>{
+    setSearchOpen(true)
+  }
+  const closeSearch=()=>{
+    setSearch("")
+    setSearchOpen(false)
+  }
+  
   
   const {colleId} = useParams()
   const {cateId} = useParams()
@@ -123,8 +140,11 @@ const Folders =()=>{
    
   if(filteredIds?.length){   
       SetFolderNo(filteredIds?.length)
-      
-  contentFolder  = filteredIds.map(id => 
+   
+   const searchFilter = !search ? filteredIds : filteredIds.filter(id => entities[id]?.title.toLowerCase().includes(search.toLowerCase())) 
+   
+   if(searchFilter?.length){
+     contentFolder  = searchFilter.map(id => 
     <EachFolder
     id={id}
   folderId={folderId}
@@ -135,8 +155,11 @@ const Folders =()=>{
   predelete={predelete}
   setFolderName={setFolderName}
     />
-    )     
-  }else{
+    )
+}else{
+  contentFolder = <p className="w-full px-2 text-gray-500 font-bold italic">No search result</p>
+   }
+}else{
     contentFolder = <p className="w-full px-2 text-gray-500 font-bold italic">No Folder</p>
   }
        
@@ -199,10 +222,24 @@ const Folders =()=>{
         
           {/*folder*/}
     <div style={useStyleH("8.9rem")} className=" w-full mt-[-0.5rem]">
-     <div className="w-full   items-center relative shadow-sp rounded-md p-1 my-2">
+     <div className="w-full   items-center relative shadow-sp rounded-md p-1 my-2 overflow-hidden">
      
-     <div className="flex justify-between items-end">
-     <div className=" ml-2 w-[13rem] overflow-auto relative ">
+     <div className="flex justify-between items-end relative mb-2 ">
+     
+   <div className="flex w-full h-full relative ">  
+   
+         <div className={`top-[-0.5rem] absolute  left-0 transition-all duration-200 ${searchOpen ? "w-full" : "w-0"} bg-white shadow-sp   overflow-auto rounded-md z-20 `}>
+       <input
+       type="text"
+       value={search}
+       onChange={onSearch}
+       placeholder="search folder"
+        className="w-full h-full bg-transparent px-2 py-1 md:p-3 outline-0"
+       />
+       </div>
+  
+   
+     <div className={`transition-all  ${searchOpen ? "opacity-0 duration-100" : "opacity-100 duration-600"} ml-2 w-[13rem] overflow-auto relative m`}>
      <input
      type="text"
        disabled
@@ -211,9 +248,16 @@ const Folders =()=>{
         />
      </div>
      
-      <div className="flex gap-2 bg-white
-       items-center rounded-bl-lg rounded-tl-lg text-light">
-        <MdSearch size={18}  className="bg-gray-200 shadow-sp w-[2rem] h-[2rem]  rounded-md p-1"/>
+     </div>
+  
+     
+      <div className=" flex gap-2 
+       items-center rounded-bl-lg rounded-tl-lg text-light ml-2 w-[5rem]">
+       { !searchOpen ?
+        <MdSearch onClick={openSearch} size={18}  className="bg-gray-200 shadow-sp w-[2rem] h-[2rem]  rounded-md p-1"/>
+        :
+        <MdClose onClick={closeSearch} size={18}  className="bg-gray-200 shadow-sp w-[2rem] h-[2rem]  rounded-md p-1"/>
+       }
         <MdAdd onClick={()=> setNewFolderOpen(true)} size={18} className="w-[2rem] h-[2rem]  rounded-md p-1 bg-gray-200 shadow-sp font-bold"/>
       </div>
       
