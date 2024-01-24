@@ -223,7 +223,13 @@ const Category =()=>{
             
             >
               <p className="italic w-[10rem] md:w-[12rem] overflow-auto"
-             onClick={handleClick} >{cate?.title ? cate?.title : <span className="text-gray-400">Categories</span>}</p>
+             onClick={handleClick} >{cate?.title ? 
+             <input
+             disabled 
+             value={cate?.title} 
+             className="bg-transparent"
+             />
+             : <span className="text-gray-400">Categories</span>}</p>
               <IoIosArrowUp 
               onClick={handleClick}
               className={`transition-all duration-200 ${isDroped && "rotate-180"}`} size={25}/>

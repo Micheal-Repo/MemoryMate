@@ -160,7 +160,7 @@ const Notes =()=>{
     setOpenFormat={setOpenFormat}
     />
     
-    <div style={styleH} className="  notesList w-full overflow-auto rounded-md shadow-sp relative">
+    <div style={styleH} className="  notesList w-full overflow-auto rounded-md shadow-sp ">
  
 
   
