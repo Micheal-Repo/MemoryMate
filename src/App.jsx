@@ -45,6 +45,11 @@ function App() {
   return (
     <main className="App">
   
+  <div className="max-sm:hidden w-screen h-screen grid place-content-center bg-dark text-[1.5rem] p-3 italic text-center text-white font-medium">
+     Please this website can only be viewed on mobile devices 
+  </div>
+  
+  <div className="sm:hidden">
     <ToastContainer
    position = "bottom-left"
    autoClose ={3000}
@@ -100,6 +105,7 @@ function App() {
         {/*end of dash*/} 
           <Route path="*" element={<NotFound/>}/>
         </Routes>
+    </div>
     </main>
   )
 }
