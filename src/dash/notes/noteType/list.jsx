@@ -16,6 +16,10 @@ import {MdDelete,MdAdd} from "react-icons/md"
 
 const List =({
   note,
+  listTitle,
+  listData,
+  setListData,
+  setListTitle
 })=>{
   
   const navigate = useNavigate()
@@ -30,8 +34,8 @@ const List =({
  
  
   //list data
-  const [listTitle,setListTitle] = useState(note?.title)
-  const [listData,setListData] = useState(note?.list)
+  // const [listTitle,setListTitle] = useState(note?.title)
+  // const [listData,setListData] = useState(note?.list)
     
     
     

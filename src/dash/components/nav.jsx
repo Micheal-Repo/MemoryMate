@@ -62,9 +62,9 @@ const [logoutOpen,setLogoutOpen] = useState(false)
     
   useEffect(()=>{
     if(logData?.success){
-      setTimeout(()=>{
+      
          navigate("/auth/login",{replace:true})
-      },1000)
+    
     }
   
   },[islogSuccess || navigate])

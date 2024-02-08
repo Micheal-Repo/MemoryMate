@@ -29,21 +29,85 @@ const Note =({
   const [isPopOpen,setIsPopOpen] = useState(false)
   const [noteType,setNoteType] = useState(type)
   
+  
+  
+  //states
+  //card
+  const [title,setTitle] = useState("")
+  const [content,setContent] = useState("")
+  
+  //list
+  const [listTitle,setListTitle] = useState("")
+  const [listData,setListData] = useState([])
+  
+  //table
+  const [tableTitle,setTableTitle] = useState(note?.title)
+  const [columns,setColumns] = useState([])
+  const [rowData,setRowData] = useState([])
+  
   const openPop =()=>{
+    
+ if(note?.format === "card"){
+       setTitle(note?.title)
+       setContent(note?.content)
+   
+  }else if(note?.format === "list"){
+       setListTitle(note?.title)
+      setListData(note?.list)
+    
+  }else if(note?.format === "table"){
+    setTableTitle(note?.title)
+    setColumns(note?.column)
+    setRowData(note?.row)
+  }
+    
     setIsPopOpen(true)
   }
-  const closePop = ()=> setIsPopOpen(false)
+  
+  
+  const closePop = ()=>{
+    //alert("hell")
+  setTitle("")
+  setContent("")
+  setListTitle("")
+  setListData([])
+  setTableTitle("")
+  setColumns([])
+  setRowData([])
+  
+  setIsPopOpen(false)
+  } 
   
   //noteTyle
   let NoteFormat;
   if(note?.format === "card"){
-    NoteFormat = <Card note={note} setIsPopOpen={setIsPopOpen}/>
+    NoteFormat = <Card 
+    note={note}
+    title={title}
+    setTitle={setTitle}
+    content={content}
+    setContent={setContent}
+    />
     
   }else if(note?.format === "list"){
-    NoteFormat = <List note={note} setIsPopOpen={setIsPopOpen}/>
+    NoteFormat = <List 
+    note={note}
+    listTitle={listTitle} 
+    setListTitle={setListTitle} 
+    listData={listData} 
+    setListData={setListData} 
+    />
     
   }else if(note?.format === "table"){
-    NoteFormat = <Table note={note} setIsPopOpen={setIsPopOpen}/>
+    NoteFormat = <Table 
+    note={note}
+    tableTitle={tableTitle} 
+    setTableTitle={setTableTitle} 
+    columns={columns} 
+    setColumns={setColumns} 
+    rowData={rowData} 
+    setRowData={rowData} 
+    />
   
   }
   

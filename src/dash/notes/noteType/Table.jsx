@@ -14,7 +14,15 @@ import {MdDelete} from "react-icons/md"
 import {useUpdateNoteMutation} from "../noteApiSlice"
 
 
-const Table =({note,setIsPopOpen})=>{
+const Table =({
+  note,
+  tableTitle,
+  setTableTitle,
+  columns,
+  setColumns,
+  rowData,
+  setRowData
+})=>{
   
   const navigate = useNavigate()
   
@@ -30,9 +38,9 @@ const Table =({note,setIsPopOpen})=>{
   const [tableinfo,setTableInfo]=useState("")
   
   //table data
-  const [tableTitle,setTableTitle] = useState(note?.title)
-  const [columns,setColumns] = useState(note?.column)
-  const [rowData,setRowData] = useState(note?.row)
+  // const [tableTitle,setTableTitle] = useState(note?.title)
+  // const [columns,setColumns] = useState(note?.column)
+  // const [rowData,setRowData] = useState(note?.row)
  
   
   //onChange

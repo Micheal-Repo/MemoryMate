@@ -10,12 +10,19 @@ import { toast } from 'react-toastify';
 //compound
 import {useUpdateNoteMutation} from "../noteApiSlice"
 
-const Card =({note,setIsPopOpen})=>{
+const Card =({
+  note,
+  setIsPopOpen,
+  title,
+  setTitle,
+  content,
+  setContent
+})=>{
   const navigate = useNavigate()
   
   //card detail 
-  const [title,setTitle] = useState(note?.title)
-  const [content,setContent] = useState(note?.content)
+  // const [title,setTitle] = useState(note?.title)
+  // const [content,setContent] = useState(note?.content)
   
  const [changed,setChange] = useState(false)
  
