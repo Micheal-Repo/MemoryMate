@@ -30,7 +30,10 @@ const DashLayout =()=>{
     
     
     if(IsOpen === true){
+      setTimeout(()=>{
+        
        setNotiOpen(IsOpen)
+      },3000)
     }
   },[])
   
