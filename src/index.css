@@ -11,6 +11,7 @@
 
 .ql-editor {
   font-size: 1.05rem;
+  @apply font-serif
 }
 
 body{

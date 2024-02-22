@@ -28,7 +28,7 @@ const Card =({
   
   //card data
   const [title,setTitle] = useState("")
-  const [content,setContent] = useState("hello")
+  const [content,setContent] = useState("")
   const valid = title && content 
  
  
