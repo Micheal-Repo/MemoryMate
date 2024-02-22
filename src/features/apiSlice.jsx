@@ -6,7 +6,7 @@ import {useNavigate} from "react-router-dom"
 
 
 const baseQuery = fetchBaseQuery({ 
-  baseUrl: "https://memorymate-api.onrender.com",
+  baseUrl:"https://memorymate-api.onrender.com",
   credentials:"include",
   prepareHeaders:(headers,{getState})=>{
     

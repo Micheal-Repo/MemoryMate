@@ -9,7 +9,9 @@
    --bg: rgba(20, 15, 51, 0.9);
 }
 
-
+.ql-editor {
+  font-size: 1.05rem;
+}
 
 body{
   font-family: 'Poppins', sans-serif;

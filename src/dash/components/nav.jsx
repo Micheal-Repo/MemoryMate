@@ -4,13 +4,22 @@ import Icon from "/memory.jpg"
 import {MdClose,MdMenu} from "react-icons/md"
 import {FaSearch} from "react-icons/fa"
 import {HiDotsVertical} from "react-icons/hi"
+
 //library 
 import OutsideClickHandler from 'react-outside-click-handler';
 import {useLogoutMutation} from "../../Auth/api/authApiSlice2"
 import {Link,useNavigate} from "react-router-dom"
 import Spinner from 'react-spinner-material';
+import {useSelector,useDispatch} from "react-redux"
+
+//components 
+import {
+  setToken,
+  setUserInfo
+} from "../../features/Slice"
 
 const Nav =({setIsOpen,isOpen})=>{
+  const dispatch = useDispatch()
   
   const navigate = useNavigate()
   
@@ -32,8 +41,9 @@ const [logoutOpen,setLogoutOpen] = useState(false)
   }] = useLogoutMutation()
   
   const handleLogOut = async()=>{
+    
     setLogoutOpen(true)
-   await logout()
+    await logout()
   }
   
   let logContent;
@@ -52,21 +62,17 @@ const [logoutOpen,setLogoutOpen] = useState(false)
     if(logData?.success){
       logContent = <p className="font-medium text-gray-200 italic">{logData?.message}</p>
       
-      setTimeout(()=>{
-      localStorage.removeItem("loggedIn")
-
-      },1000)
- 
     }
-    }
+ }
     
   useEffect(()=>{
     if(logData?.success){
-      
-         navigate("/auth/login",{replace:true})
-    
+      navigate("/auth/login",{replace:true})
+       
+       dispatch(setUserInfo({}))
+       dispatch(setToken(""))
+      localStorage.removeItem("loggedIn")
     }
-  
   },[islogSuccess || navigate])
   
  if(isLogError){

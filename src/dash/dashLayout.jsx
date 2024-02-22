@@ -41,6 +41,8 @@ const DashLayout =()=>{
     //alert("hello")
     localStorage.setItem("notiOpen", false)
     setNotiOpen(false)
+    
+    
   }
   return(
     <div 

@@ -11,6 +11,9 @@ import {setToken} from "../../features/Slice"
 //components
 import {usePwdLoginMutation} from "../api/authApiSlice2"
 
+//icons
+import {IoEyeSharp,IoEyeOff} from "react-icons/io5"
+
 const PwdLogin  =({setIsVerified})=>{
   
   const dispatch = useDispatch()
@@ -30,6 +33,7 @@ const PwdLogin  =({setIsVerified})=>{
   const [userName,setUsername] = useState(localStorage.getItem("username") || "username")
   const [userEmail,setUserEmail] = useState(localStorage.getItem("email") || "email@gmail.com")
   const [userProfile,setUserProfile] = useState(localStorage.getItem("profile") || "")
+  
   
   //input
   const [pwd,setPwd]= useState("")
@@ -115,6 +119,9 @@ const PwdLogin  =({setIsVerified})=>{
     navigate("/auth/recover")
   }
   
+  //visible password
+  const [isVisible,setIsVisible] = useState(false)
+  
   return(
    
        <form onSubmit={handleSubmit} className="w-full flex flex-col gap-2 justify-center items-center p-2">
@@ -148,17 +155,27 @@ const PwdLogin  =({setIsVerified})=>{
            <p className="text-center text-gray-400 italic  text-[0.95rem]">pls enter your password
            </p>
          
+          <div className="relative">
           
            <input
            className="text-white bg-transparent border-2 border-gray-500 w-full p-3 rounded-lg font-medium outline-0 "
            name="password"
-           type="password"
+           type={isVisible ? "text" : "password"}
            placeholder="password"
            value={pwd}
            onChange={handleChange}
-           
-           />
           
+           />
+           
+           <div className="absolute top-3 right-3 text-gray-400 ">
+            {!isVisible ?
+            <IoEyeOff size={30} onClick={()=> setIsVisible(true)}/>
+            :
+            <IoEyeSharp size={30} onClick={()=> setIsVisible(false)}/>
+            }
+           </div>
+          
+         </div>
          </div>
          
          <div className="w-full my-3">

@@ -7,6 +7,9 @@ import { RotatingLines} from 'react-loader-spinner'
 //components
 import {useSendPwdPermitMutation} from "../api/authApiSlice"
 
+//bg-clip-content
+import {IoEyeSharp,IoEyeOff} from "react-icons/io5"
+
 const PasswordPermit =({setPermited})=>{
   const [errMsg,setErrMsg] = useState("")
   const [pwd,setPwd] = useState("")

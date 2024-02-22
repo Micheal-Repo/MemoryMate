@@ -5,6 +5,8 @@ import Spinner from 'react-spinner-material';
 import {useParams,useNavigate} from "react-router-dom"
 import {useSelector} from "react-redux"
 import { toast } from 'react-toastify';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 //components
 import {useAddNoteMutation} from "../noteApiSlice"
@@ -26,7 +28,7 @@ const Card =({
   
   //card data
   const [title,setTitle] = useState("")
-  const [content,setContent] = useState("")
+  const [content,setContent] = useState("hello")
   const valid = title && content 
  
  
@@ -35,8 +37,8 @@ const Card =({
     setTitle(e.target.value)
   }
   
-  const onContentChange =(e)=>{
-    setContent(e.target.value)
+  const onContentChange =(value)=>{
+    setContent(value)
   }
   
   //add new
@@ -117,8 +119,37 @@ const Card =({
     }
     
   },[error || navigate])
+  
+   //react quill
+ const formats = [
+    'header', 'font', 'size',
+    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet', 'indent',
+    'link', 'image', 'video',
+    'color', // Include color format
+  ];
+  
+  const toolbarOptions = [
+  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+  ['blockquote'],
+
+  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
+  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+
+
+  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+
+  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+  [{ 'font': [] }],
+
+  ['clean']                                         // remove formatting button
+];
 
   
+  const modules = {
+    toolbar:toolbarOptions
+  };
   
 // const isLoading=true 
   return(
@@ -128,20 +159,29 @@ const Card =({
          <textarea
          value={title}
          placeholder="Title"
+         row="2"
          onChange={onTitleChange}
-         className="w-full bg-dark p-3 rounded-lg text-white font-bold h-[4rem] focus:bg-white focus:text-dark outline-dark text-[1.2rem]"
+         className="w-full bg-dark p-2 rounded-lg text-white font-bold h-[3.5rem] focus:bg-white focus:text-dark outline-dark text-[1.2rem]"
          />
        </div>
        
        
-         <textarea
+        {/* <textarea
          style={{height:"calc(100% - 7.5rem)"}} 
          placeholder="content"
          value={content}
          onChange={onContentChange}
          className="text-black shadow-sp cardSroll scroll w-full bg-gray-200 p-3 rounded-lg   h-[4rem] focus:bg-white outline-8 outline-dark"
-         />
-      
+         />*/}
+      <ReactQuill 
+      theme="snow" 
+      modules={modules}
+      formats={formats}
+      value={content}
+      onChange={onContentChange}
+      placeholder="content"
+      className="h-[17.5rem] mb-[6.2rem]"
+      />
       <div className="w-full flex justify-end">
          <button disabled={!valid}  onClick={AddNewNote} className={`${ valid ? "text-white bg-red-400 " : "shadow-sp text-black"} p-2 px-3  shadow-sp rounded-lg font-bold text-right  transition duration-200`}>
              {!isLoading ? " Done" :

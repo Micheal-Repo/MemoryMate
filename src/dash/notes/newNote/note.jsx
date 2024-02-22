@@ -45,7 +45,7 @@ const Note =({
   
   return(
    
-      <div className="bg-white max-sm:w-[21rem] max-md:w-[28rem] w-[34rem] max-sm:h-[35rem] max-md:h-[38rem] h-[42rem] overflow-scroll relative p-2 rounded-md relative">        
+      <div className="bg-white max-sm:w-[22rem] max-md:w-[28rem] w-[34rem] max-sm:h-[34.5rem] max-md:h-[38rem] h-[42rem] overflow-scroll relative p-2 rounded-md relative">        
       
       {/*icon*/}
         <div className="w-full  flex items-center justify-between">

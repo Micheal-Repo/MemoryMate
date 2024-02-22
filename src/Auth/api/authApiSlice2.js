@@ -71,7 +71,7 @@ export const authApiSlice = ApiSlice.injectEndpoints({
             const {data} = await queryFulfilled
             setTimeout(()=>{
               dispatch(setToken(""))
-              dispatch(setUserInfo(""))
+              dispatch(setUserInfo({}))
              dispatch(ApiSlice.util.resetApiState())
             },2000)
           }catch(err){

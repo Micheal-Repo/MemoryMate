@@ -153,7 +153,7 @@ const Note =({
     />
     
     <ViewNote isOpen={isPopOpen} onClose={closePop}>
-      <div className="max-sm:w-[20rem] max-md:w-[25rem] w-[30rem] max-sm:h-[32rem] max-md:h-[34] h-[36rem] overflow-scroll p-1">
+      <div className="max-sm:w-[21.5rem] max-md:w-[25rem] w-[30rem] max-sm:h-[31.5rem] max-md:h-[34] h-[36rem] overflow-scroll p-1">
         {NoteFormat}
       </div>
     </ViewNote>
