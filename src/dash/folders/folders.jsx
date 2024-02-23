@@ -312,7 +312,7 @@ const EachFolder =({
   
   return(
      <div id={id} className={`relative py-2 px-2 max-sm:py-1 text-light bg-gray-100 pr-5 shadow-sp `}>
-                 <p onClick={handleActiveFolder} className={`${folderId === id && "text-red-500 underline"}  transition-all duration-200 w-[9rem] max-sm:w-[8rem] font-semibold text-md text-[1rem] md:text-[1.2rem] overflow-auto`}>{folder.title.split("").length < 12 ? folder.title : `${folder.title.slice(0,12)}...`}</p>
+                 <p onClick={handleActiveFolder} className={`${folderId === id && "text-red-500 underline"}  transition-all duration-200 w-[9rem] max-sm:w-[8rem] font-semibold text-md text-[1rem] md:text-[1.2rem] overflow-auto whitespace-nowrap`}>{folder.title.split("").length < 12 ? folder.title : `${folder.title.slice(0,12)}...`}</p>
                
     
                  
